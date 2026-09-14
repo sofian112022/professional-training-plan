@@ -1,0 +1,15 @@
+{
+  "name": "Professional Training Plan",
+  "install": "npm ci",
+  "terminals": [
+    {
+      "name": "dev",
+      "command": "npm run dev",
+      "description": "Runs the Express training-plan API (port 3001) and the Vite web dev server (port 5173) together. The web server proxies /api to the API."
+    }
+  ],
+  "ports": [
+    { "name": "web", "port": 5173 },
+    { "name": "api", "port": 3001 }
+  ]
+}
