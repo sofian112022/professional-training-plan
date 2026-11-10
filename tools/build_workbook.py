@@ -1528,12 +1528,27 @@ def write_search(ws):
     lists["H6"] = pull("الشرح")
     lists["H7"] = pull("رقم_العرض")
     lists["H8"] = pull("اسم_البحث")
-    lists["H9"] = '=IF(قوائم!H3="","",TEXTJOIN("  ·  ",TRUE,INDEX(Law[الكتاب],قوائم!H3),INDEX(Law[الباب],قوائم!H3),INDEX(Law[الفصل],قوائم!H3)))'
+    lists["H9"] = (
+        '=IF(H3="","",'
+        'INDEX(Law[الكتاب],H3)'
+        '&IF(INDEX(Law[الباب],H3)="","","  ·  "&INDEX(Law[الباب],H3))'
+        '&IF(INDEX(Law[الفصل],H3)="","","  ·  "&INDEX(Law[الفصل],H3)))'
+    )
     lists["H10"] = pull("صف_الكتاب")
     lists["H11"] = pull("جهة_التنفيذ")
 
     merge(ws, 25, 2, 7, '=IF(قوائم!H7="","اختر مادة لعرضها",قوائم!H7&"  —  "&قوائم!H8)', font(18, True, WHITE), FILL(NAVY), RTL, 30)
-    merge(ws, 26, 2, 7, '=IF(قوائم!H7="","",قوائم!H9)', font(11, False, TEAL), FILL(SAND), RTL, 24)
+    merge(
+        ws,
+        26,
+        2,
+        7,
+        '=IF(قوائم!H8="","",قوائم!H8&IF(IFERROR(قوائم!H9,"")="","","  ·  "&قوائم!H9))',
+        font(12, True, TEAL),
+        FILL(SAND),
+        RTL,
+        28,
+    )
     merge(ws, 27, 2, 5, '=IF(قوائم!H10="","",HYPERLINK("#\'كتاب القانون\'!A"&قوائم!H10,"افتح هذه المادة في كتاب القانون"))', font(12, True, "1F4E79"), FILL(CREAM), RTL, 22)
     merge(ws, 27, 6, 7, '=IF(قوائم!H11="","",قوائم!H11)', font(11, True, TEAL), FILL(MINT), RTL, 22)
 
